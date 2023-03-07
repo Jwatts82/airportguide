@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyString
+  hours: 1
+  rating: 1
+  cost: 1
+  airport_id: 1
+
+two:
+  name: MyString
+  description: MyString
+  hours: 1
+  rating: 1
+  cost: 1
+  airport_id: 1
