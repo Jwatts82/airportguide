@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat&family=Shadows+Into+Light&family=Solitreo&display=swap');
+
 * {
     box-sizing: border-box;
 }
@@ -112,7 +114,6 @@ nav ul li + li +li {
 
 .content img {
     max-width: 100%;
-
 }
 
 .content {
@@ -122,6 +123,15 @@ nav ul li + li +li {
 
 .content h1 {
     margin: 0;
+    font-size: 3em;
+    font-family: 'Shadows Into Light';
+    text-align: center;
+}
+
+.content h2 {
+    margin: 0;
+    font-family: 'Shadows Into Light';
+    text-align: center;
 }
 
 .content small {
