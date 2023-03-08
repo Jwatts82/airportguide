@@ -112,6 +112,19 @@ nav ul li + li +li {
 
 }
 
+a {
+    color: #fafafa;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #fafafa;
+}
+
+a:hover {
+    color: rgb(254, 44, 2)
+}
+
 .content img {
     max-width: 100%;
 }
