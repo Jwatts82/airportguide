@@ -18,7 +18,7 @@ window.addEventListener("DOMContentLoaded", () => {
 })
 
 function getAirports() {
-    let main = document.getElementById('main')
+    let main = document.getElementById('content')
     main.innerHTML = ""
     fetch(BASE_URL + '/airports')
     .then(res => res.json())
@@ -34,7 +34,8 @@ function getAirports() {
 })}
 
 function displayForm() {
-    let formDiv = document.querySelector('#airport-form')
+    let main = document.getElementById('content')
+    main.innerHTML = ""
     let html = `
         <form>
             <label>Airport Name:</label>
@@ -48,19 +49,47 @@ function displayForm() {
             <input type="submit">
         </form>
     `
-    formDiv.innerHTML = html
+    main.innerHTML = html
     document.querySelector('form').addEventListener('submit', createAirport)
 }
 
 function clearForm() {
-    let formDiv = document.querySelector('#airport-form')
-    formDiv.innerHTML = ""
+    let main = document.querySelector('#airport-form')
+    main.innerHTML = ""
 }
 
 function createAirport(e) {
     e.preventDefault()
+    let main = document.getElementById('content')
+    let airport = {
+        name:  e.target.querySelector('#name').value,
+        abreviation: e.target.querySelector('#abreviation').value,
+        city: e.target.querySelector('#city').value,
+        state: e.target.querySelector('#state').value
+    }  
 
-    console.log(e)
+    let configObj =  {
+        method: 'POST',
+        body: JSON.stringify(airport),
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    }
+    
+    main.innerHTML = ""
+    fetch(BASE_URL + '/airports', configObj)
+    .then(res => res.json())
+    .then(airport => {
+        main.innerHTML += `
+            <li>
+                <a href="#"data-id="${airport.id}">${airport.name} - ${airport.city}, ${airport.state}</a>
+            </li>
+            `
+        attachClicksToLinks()
+        clearForm()
+        }
+    )
 }
 
 
@@ -75,7 +104,7 @@ function attachClicksToLinks() {
 function displayAirport(e) {
     console.log(e.target)
     let id = e.target.dataset.id
-    let main = document.getElementById('main')
+    let main = document.getElementById('content')
     main.innerHTML = ""
     fetch(BASE_URL + `/airports/${id}`)
     .then(res => res.json())
