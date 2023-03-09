@@ -112,10 +112,27 @@ function displayAirport(e) {
         main.innerHTML = `
             <h3>${airport.name}</h3>
             <h4>${airport.city}, ${airport.state}</h4>
+            <button id='delete-airport' data-id="${airport.id}">Delete</button>
             <hr>
             <br>
         `
+        document.getElementById('delete-airport').addEventListener('click', removeAirport)
     })
 }
 
+function removeAirport(e) {
+    let configObj = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        } 
+    }
+    fetch(BASE_URL + `/airports/${e.target.dataset.id}`, configObj)
+    .then(() => {
+        console.log('deleting')
+        getAirports()}
+    )
+    
+}
 // init()
