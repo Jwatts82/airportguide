@@ -3,7 +3,7 @@ class AirportsController < ApplicationController
 
   # GET /airports
   def index
-    @airports = Airport.all
+    airports = Airport.all
 
     render json: @airports
   end

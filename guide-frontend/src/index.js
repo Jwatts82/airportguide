@@ -1,8 +1,13 @@
-const BASE_URL = 'http://localhost:3000'
+const apiService = new ApiService()
+let main = document.getElementById('main')
 const container = document.querySelector('.container')
 
-window.addEventListener("DOMContentLoaded", () => {
-    document.getElementById('airports-nav').addEventListener('click', getAirports)
+const init= () => {
+    bindEventListeners()
+}
+
+function bindEventListeners() {
+    document.getElementById('airports-nav').addEventListener('click', renderAirports)
 
     document.getElementById('airports-form').addEventListener('click', displayForm)
 
@@ -14,27 +19,21 @@ window.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById('airports-form').addEventListener('click', () => container.classList.remove('show-nav'))
 
+}
 
-})
-
-function getAirports() {
-    let main = document.getElementById('content')
+async function renderAirports() {
+    // let main = document.getElementById('content')
+    const airports = await apiService.fetchAirports()
     main.innerHTML = ""
-    fetch(BASE_URL + '/airports')
-    .then(res => res.json())
-    .then(airports => {
-        airports.map(airport=> {
-        main.innerHTML += `
-            <li>
-                <a href="#"data-id="${airport.id}">${airport.name} - ${airport.city}, ${airport.state}</a>
-            </li>
-            `
-        })
-        attachClicksToLinks()
-})}
+    airports.map(airport => {
+        const newAirport = new Airport(airport)
+        main.innerHTML  += newAirport.render()
+    })
+
+}
 
 function displayForm() {
-    let main = document.getElementById('content')
+    let main = document.getElementById('main')
     main.innerHTML = ""
     let html = `
         <form>
@@ -135,4 +134,5 @@ function removeAirport(e) {
     )
     
 }
-// init()
+
+init()
