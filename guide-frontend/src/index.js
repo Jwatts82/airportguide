@@ -1,3 +1,4 @@
+const BASE_URL = 'http://localhost:3000'
 const apiService = new ApiService()
 let main = document.getElementById('main')
 const container = document.querySelector('.container')
@@ -6,7 +7,7 @@ const init= () => {
     bindEventListeners()
 }
 
-function bindEventListeners() {
+window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('airports-nav').addEventListener('click', renderAirports)
 
     document.getElementById('airports-form').addEventListener('click', displayForm)
@@ -19,10 +20,10 @@ function bindEventListeners() {
 
     document.getElementById('airports-form').addEventListener('click', () => container.classList.remove('show-nav'))
 
-}
+})
 
 async function renderAirports() {
-    // let main = document.getElementById('content')
+    let main = document.getElementById('content')
     const airports = await apiService.fetchAirports()
     main.innerHTML = ""
     airports.map(airport => {
@@ -135,4 +136,4 @@ function removeAirport(e) {
     
 }
 
-init()
+// init()
